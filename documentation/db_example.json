@@ -1,0 +1,341 @@
+{
+  "users": [
+    {
+      "_id": {
+        "$oid": "5f843e23be7edce94ee1421a"
+      },
+      "login": "elqadmin",
+      "password": "beta",
+      "email": "elqadmin@etu.ru",
+      "name": "Росс",
+      "surname": "Лоули",
+      "role": "admin",
+      "githubLogin": "githubexample",
+      "moodleLogin": "moodleexample"
+    },
+    {
+      "_id": {
+        "$oid": "5fcb59d3e46b50bd79af35e7"
+      },
+      "login": "forever_alove",
+      "email": "kirvant31580@gmail.com",
+      "name": "Александр",
+      "surname": "Облизанов",
+      "role": "student",
+      "githubID": "42894877",
+      "githubLogin": "the21composer",
+      "moodleLogin": "qwertyuy",
+      "group": "8382"
+    },
+    {
+      "_id": {
+        "$oid": "6149a377e46b50bd79af35ec"
+      },
+      "login": "elqstudent",
+      "password": "Betabeta1!",
+      "email": "ivanivanov@mail.ru",
+      "name": "Иван",
+      "surname": "Иванов",
+      "role": "student",
+      "githubLogin": "ivanivanov",
+      "moodleLogin": "ivanivanov",
+      "group": "8333"
+    }
+  ],
+  "queues": [
+    {
+      "_id": {
+        "$oid": "5fcaafebe46b50bd79af35e5"
+      },
+      "discipline": "ООП",
+      "students": {},
+      "groups": [
+        "all"
+      ],
+      "date": "05-12-2020",
+      "time": "00:53",
+      "teacher": "Росс Лоули",
+      "author": {
+        "$oid": "5f843e23be7edce94ee1421a"
+      },
+      "description": "Приветик",
+      "custom_start": false,
+      "startDate": "05-11-2020",
+      "startTime": "00:53",
+      "records": [],
+      "archive": [],
+      "archived": true
+    },
+    {
+      "_id": {
+        "$oid": "5fcb34b8e46b50bd79af35e6"
+      },
+      "discipline": "ООП",
+      "students": {},
+      "groups": [
+        "all"
+      ],
+      "date": "05-12-2020",
+      "time": "10:20",
+      "teacher": "Росс Лоули",
+      "author": {
+        "$oid": "5f843e23be7edce94ee1421a"
+      },
+      "description": "Тест",
+      "custom_start": false,
+      "startDate": "05-11-2020",
+      "startTime": "10:20",
+      "records": [],
+      "archive": [],
+      "archived": true
+    },
+    {
+      "_id": {
+        "$oid": "608c2408e46b50bd79af35e8"
+      },
+      "discipline": "ООП",
+      "students": {},
+      "groups": [
+        "all"
+      ],
+      "date": "30-04-2021",
+      "time": "18:36",
+      "teacher": "Росс Лоули",
+      "author": {
+        "$oid": "5f843e23be7edce94ee1421a"
+      },
+      "description": "Привет",
+      "custom_start": false,
+      "startDate": "30-03-2021",
+      "startTime": "18:36",
+      "records": [],
+      "archive": [],
+      "archived": true
+    },
+    {
+      "_id": {
+        "$oid": "60a5100ee46b50bd79af35e9"
+      },
+      "discipline": "ООП",
+      "students": {},
+      "groups": [
+        "all"
+      ],
+      "date": "19-05-2021",
+      "time": "16:18",
+      "teacher": "Росс Лоули",
+      "author": {
+        "$oid": "5f843e23be7edce94ee1421a"
+      },
+      "description": "ываываываыва",
+      "custom_start": false,
+      "startDate": "19-04-2021",
+      "startTime": "16:18",
+      "records": [],
+      "archive": [],
+      "archived": true
+    },
+    {
+      "_id": {
+        "$oid": "60a666d3e46b50bd79af35ea"
+      },
+      "discipline": "ООП",
+      "students": {},
+      "groups": [
+        "all"
+      ],
+      "date": "21-05-2021",
+      "time": "16:40",
+      "teacher": "Росс Лоули",
+      "author": {
+        "$oid": "5f843e23be7edce94ee1421a"
+      },
+      "description": "укуцкцукукцкуцк",
+      "custom_start": false,
+      "startDate": "20-04-2021",
+      "startTime": "16:40",
+      "records": [],
+      "archive": [],
+      "archived": true
+    },
+    {
+      "_id": {
+        "$oid": "6158389fe46b50bd79af35ee"
+      },
+      "discipline": "ООП",
+      "students": {
+        "5f843e23be7edce94ee1421a": 2
+      },
+      "groups": [
+        "all"
+      ],
+      "date": "02-10-2021",
+      "time": "13:46",
+      "teacher": "Росс Лоули",
+      "author": {
+        "$oid": "5f843e23be7edce94ee1421a"
+      },
+      "description": "фывыфв",
+      "custom_start": false,
+      "startDate": "02-09-2021",
+      "startTime": "13:46",
+      "archive": [
+        {
+          "id": {
+            "$oid": "61600abde46b50bd79af3626"
+          },
+          "student": {
+            "$oid": "5f843e23be7edce94ee1421a"
+          },
+          "index": 1,
+          "date": "08-10-2021 09:09",
+          "task": "Dhjsjs",
+          "comments": []
+        },
+        {
+          "id": {
+            "$oid": "61619850e46b50bd79af3655"
+          },
+          "student": {
+            "$oid": "5f843e23be7edce94ee1421a"
+          },
+          "index": 1,
+          "date": "09-10-2021 13:25",
+          "task": "kjrkjtertret",
+          "comments": []
+        }
+      ],
+      "archived": true
+    },
+    {
+      "_id": {
+        "$oid": "615838f5e46b50bd79af35ef"
+      },
+      "discipline": "ООП",
+      "students": {
+        "5f843e23be7edce94ee1421a": 1
+      },
+      "groups": [
+        "all"
+      ],
+      "date": "02-10-2021",
+      "time": "13:48",
+      "teacher": "Росс Лоули",
+      "author": {
+        "$oid": "5f843e23be7edce94ee1421a"
+      },
+      "description": "ррпава",
+      "custom_start": true,
+      "startDate": "01-09-2021",
+      "startTime": "13:48",
+      "records": [
+        {
+          "id": {
+            "$oid": "61583971e46b50bd79af35f0"
+          },
+          "student": {
+            "$oid": "5f843e23be7edce94ee1421a"
+          },
+          "index": 1,
+          "date": "02-10-2021 10:50",
+          "task": "ннекуке",
+          "comments": [
+            {
+              "id": {
+                "$oid": "61583d1ee46b50bd79af35ff"
+              },
+              "author": {
+                "$oid": "5f843e23be7edce94ee1421a"
+              },
+              "date": "02-10 11:06",
+              "text": "фывыфввы"
+            },
+            {
+              "id": {
+                "$oid": "616c29dbe46b50bd79af37bc"
+              },
+              "author": {
+                "$oid": "5f843e23be7edce94ee1421a"
+              },
+              "date": "17-10 13:49",
+              "text": "текст"
+            },
+            {
+              "id": {
+                "$oid": "616d1e87e46b50bd79af37f6"
+              },
+              "author": {
+                "$oid": "5f843e23be7edce94ee1421a"
+              },
+              "date": "18-10 07:13",
+              "text": "лол"
+            }
+          ]
+        }
+      ],
+      "archive": [],
+      "archived": false
+    },
+    {
+      "_id": {
+        "$oid": "6161979ae46b50bd79af3644"
+      },
+      "discipline": "ПиАА",
+      "students": {},
+      "groups": [
+        "8382",
+        "8383"
+      ],
+      "date": "09-10-2021",
+      "time": "16:22",
+      "teacher": "Росс Лоули",
+      "author": {
+        "$oid": "5f843e23be7edce94ee1421a"
+      },
+      "description": "hhghfghgh",
+      "custom_start": false,
+      "startDate": "09-09-2021",
+      "startTime": "16:22",
+      "records": [],
+      "archive": [],
+      "archived": false
+    }
+  ],
+  "disciplines": [
+    {
+      "_id": {
+        "$oid": "5f843e23be7edce94ee1421d"
+      },
+      "name": "Объектно-ориентированное программирование",
+      "short": "ООП"
+    },
+    {
+      "_id": {
+        "$oid": "5f843e23be7edce94ee1421e"
+      },
+      "name": "Построение и анализ алгоритмов",
+      "short": "ПиАА"
+    },
+    {
+      "_id": {
+        "$oid": "5f843e23be7edce94ee1421f"
+      },
+      "name": "Организация ЭВМ",
+      "short": "ОЭВМ"
+    },
+    {
+      "_id": {
+        "$oid": "5f843e23be7edce94ee14220"
+      },
+      "name": "Информатика",
+      "short": "Инф"
+    },
+    {
+      "_id": {
+        "$oid": "5f844726e46b50bd79af35d9"
+      },
+      "name": "Программирование",
+      "short": "Пр"
+    }
+  ]
+}
