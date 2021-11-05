@@ -1,0 +1,9 @@
+elqueue_web:
+    build: ./back
+    ports:
+        - 8091:8091
+    links:
+        - elqueue_db
+    
+elqueue_db:
+    image: mongo:3.2
