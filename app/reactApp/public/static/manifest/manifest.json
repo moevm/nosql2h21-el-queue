@@ -1,0 +1,15 @@
+{
+  "short_name": "El Queue",
+  "name": "MOEVM El Queue",
+  "icons": [
+    {
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "100x100"
+    }
+  ],
+  "display": "standalone",
+  "start_url": "/",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
