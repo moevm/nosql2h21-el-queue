@@ -67,7 +67,7 @@ class TableContainer extends Component {
     render() {
         return (
             <>
-                <Container className="p-3">
+                <Container className="p-3 col-12">
                     {
 
                         this.props.match.params.table_name === "secretkeys" &&

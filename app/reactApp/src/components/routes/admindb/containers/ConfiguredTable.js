@@ -65,7 +65,7 @@ function ConfiguredTable(props) {
                 }}
                 isLoading={props.isLoading}
                 localization={localization}
-                title={props.table_name}
+                title={props.table_name.toUpperCase()}
                 columns={props.columns}
                 data={props.data}
                 editable={{

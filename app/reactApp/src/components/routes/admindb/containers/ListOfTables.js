@@ -31,9 +31,9 @@ class ListOfTables extends Component {
         fetch(`/db/upload/disciplines`, {
             method:"POST",
             headers:{
-                Authorization: "JWT " + localStorage.getItem("accesstoken"),
+                Authorization:"JWT " + localStorage.getItem("accesstoken"),
             },
-            body: formData
+            body:formData
         })
             .then(data => data.json())
     }
@@ -54,13 +54,13 @@ class ListOfTables extends Component {
                             to="/users"
                         />
                         <DescriptionContainer
-                            header={"Список преподавателей"}
+                            header={"Список занятий"}
                             description={[
-                                "Просмотр списка возможных преподавателей",
+                                "Просмотр списка занятий",
                                 "Удаление",
                                 "Добавление",
                             ]}
-                            to="/teachers"
+                            to="/classes"
                             className="custom-block"
                         />
                         <DescriptionContainer
@@ -85,18 +85,18 @@ class ListOfTables extends Component {
                         <Col md={4}>
                             <div className="custom-card mb-4 shadow-sm">
                                 <center className="pt-3">
-                                    <h4>Загрузить список предметов</h4>
+                                    <h4>Импорт Базы Данных</h4>
                                 </center>
                                 <hr/>
                                 <div className="card-body">
-                                    <input type="file" id="fileinput" className="mb-3 p-3 custom-card bg-white" accept=".csv"/>
+                                    <input type="file" id="fileinput" className="mb-3 p-3 custom-card bg-white"
+                                           accept=".json"/>
                                     <div className="d-flex justify-content-between">
-                                        <Button className="custom-btn btn-info" onClick={this.uploadDisciplines}>Загрузить</Button>
-                                        <OverlayTrigger placement="bottom" overlay={<Tooltip>CSV файл со строками формата: short_name, full_name</Tooltip>}>
-                                            <div className="mr-0 mr-lg-3">
-                                                <Image src="static/img/info.svg" width="24" />
-                                            </div>
-                                        </OverlayTrigger>
+                                        <Button className="custom-btn btn-info"
+                                                onClick={this.uploadDisciplines}>Загрузить</Button>
+                                        <div className="mr-0 mr-lg-3">
+                                            <Image src="static/img/info.svg" width="24"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

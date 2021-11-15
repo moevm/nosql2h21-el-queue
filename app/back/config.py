@@ -10,8 +10,10 @@ def sendTeacher():
             users.append(teacher)
     return jsonify(users)
 
+
 def sendDiscipline():
     disciplines = []
     for disc in Discipline.objects:
         disciplines.append(disc.short)
+    print(disciplines)
     return jsonify(disciplines)

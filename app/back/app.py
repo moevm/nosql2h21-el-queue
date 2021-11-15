@@ -6,12 +6,14 @@ from datetime import timedelta
 
 from flask import Flask, render_template, request, jsonify
 from flask_jwt import JWT, jwt_required
+from flask_cors import CORS
 from flask_socketio import SocketIO
 from mongoengine import connect
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 SECRET_KEY = str(uuid.uuid4())
 app = Flask(__name__)
+CORS(app)
 app.secret_key = SECRET_KEY
 app.config['UPLOAD_FOLDER'] = '../data/'
 app.config['JWT_AUTH_URL_RULE'] = '/signin'
@@ -21,7 +23,7 @@ socketio = SocketIO(app, cors_allowed_origins="*", static_url_path=(
         os.path.dirname(os.path.abspath(__file__)) + "/templates"))
 
 from admin import sendUsers, responseUsers, sendDisciplines, responseDisciplines, responseTeachers, sendTeachers, \
-    sendSecretkeys, responseSecretkeys, dbDownload, uploadDisciplines
+    sendSecretkeys, responseSecretkeys, dbDownload, uploadDisciplines, sendClasses, importDB, responseClasses
 from auth import github_login, onSignIn, onSignUp, ongithub_auth_next, ongithub_auth, authenticate, identity, \
     customized_response_handler
 from beta_docker import testDB, resetDB
@@ -182,6 +184,15 @@ def db_users():
         return responseUsers()
 
 
+@app.route('/db/classes', methods=['GET', 'POST'])
+@jwt_required()
+def db_classes():
+    if request.method == 'GET':
+        return sendClasses()
+    else:
+        return responseClasses()
+
+
 @app.route('/db/disciplines', methods=['GET', 'POST'])
 @jwt_required()
 def db_disciplines():
@@ -217,7 +228,7 @@ def db_download():
 
 @app.route('/db/upload/disciplines', methods=['POST'])
 def upload_disciplines():
-    return uploadDisciplines(os.path.join(app.config['UPLOAD_FOLDER']))
+    return importDB(os.path.join(app.config['UPLOAD_FOLDER']))
 
 
 @app.route('/githubauth')

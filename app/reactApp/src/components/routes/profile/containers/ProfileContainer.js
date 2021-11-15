@@ -21,6 +21,7 @@ class ProfileContainer extends Component {
                 login: "",
                 role: "",
                 name: "",
+                patronymic: "",
                 surname: "",
                 GitID: "",
                 moodleID: "",

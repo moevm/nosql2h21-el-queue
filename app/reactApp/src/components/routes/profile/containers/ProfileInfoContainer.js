@@ -14,7 +14,7 @@ class ProfileInfoContainer extends Component {
                             <Row>
                                 <Col className="col-12">
                                     <div className="mt-2 mb-2">
-                                        <h3 className="mb-0">{this.props.userInfo.name} {this.props.userInfo.surname}</h3>
+                                        <h4 className="mb-0">{this.props.userInfo.name} {this.props.userInfo.surname} {this.props.userInfo.patronymic}</h4>
                                         <div className="text-muted">{this.props.userInfo.login}</div>
                                     </div>
                                 </Col>

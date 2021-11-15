@@ -22,6 +22,7 @@ class ProfileEditorContainer extends Component {
                 login: '',
                 name: '',
                 surname: '',
+                patronymic: '',
                 GithubLogin: '',
                 MoodleLogin: '',
             },
@@ -30,6 +31,7 @@ class ProfileEditorContainer extends Component {
                 email: false,
                 name: false,
                 surname: false,
+                patronymic: '',
                 GithubLogin: false,
                 MoodleLogin: false,
 
@@ -48,6 +50,9 @@ class ProfileEditorContainer extends Component {
                 ],
                 surname: [
                     v => !v || v.search(/^[а-яА-Яa-zA-Z]+$/) !== -1 || "Фамилия может содержать только символы - а-я А-Я a-z A-Z"
+                ],
+                patronymic: [
+                    v => !v || v.search(/^[а-яА-Яa-zA-Z]+$/) !== -1 || "Отчество может содержать только символы - а-я А-Я a-z A-Z"
                 ],
                 GithubLogin: [
                     v => !v || v.search(/^[a-zA-Z0-9_-]*$/) !== -1 || "GithubLogin может содержать только символы _ - 0-9 a-z A-Z.",
@@ -130,7 +135,7 @@ class ProfileEditorContainer extends Component {
                     </Col>
                     <Col>
                         <Row>
-                            <p className="mb-0">Сейчас Имя и Фамилия: <b> {this.props.userInfo.name} {this.props.userInfo.surname}</b></p>
+                            <p className="mb-0">Сейчас ФИО: <b> {this.props.userInfo.name} {this.props.userInfo.surname} {this.props.userInfo.patronymic}</b></p>
                             <InputGroup className="mb-3">
                                 <InputGroup.Prepend>
                                     <InputGroup.Text className="custom-form">Новое Имя</InputGroup.Text>
@@ -163,6 +168,23 @@ class ProfileEditorContainer extends Component {
                                 />
                                 <FormControl.Feedback type="invalid">
                                     {this.state.errors.surname}
+                                </FormControl.Feedback>
+                            </InputGroup>
+                            <InputGroup className="mb-3">
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text className="custom-form">Новое Отчество</InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <FormControl
+                                    isInvalid={!!this.state.errors.patronymic}
+                                    name={"patronymic"}
+                                    value={this.state.values.patronymic}
+                                    onChange={this.handleOnChange}
+                                    type="text"
+                                    placeholder="Новое отчество"
+                                    className="custom-endform"
+                                />
+                                <FormControl.Feedback type="invalid">
+                                    {this.state.errors.patronymic}
                                 </FormControl.Feedback>
                             </InputGroup>
                         </Row>

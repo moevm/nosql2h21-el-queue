@@ -4,4 +4,5 @@ mongoengine==0.20.0
 uuid==1.30.0
 Flask-Dance==3.0.0
 Flask-JWT==0.3.2
+Flask-Cors==3.0.7
 

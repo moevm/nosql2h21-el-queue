@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from app_models import User, Queue, Record, Comment
+from app_models import User, Queue, Record, Comment, Telemetry
 from operator import itemgetter
 from app import socketio
 from datetime import datetime
@@ -17,9 +17,15 @@ def onAddNewQueue():
         teacher = user.name + " " + user.surname
     format_date = datetime.strftime(datetime.strptime(data_dict["date"], "%Y-%m-%d"), "%d-%m-%Y")
     format_start_date = datetime.strftime(datetime.strptime(data_dict["start_date"], "%Y-%m-%d"), "%d-%m-%Y")
-    Queue(discipline=data_dict["discipline"], author=user, groups=groups, date=format_date,
-          time=data_dict["time"], custom_start=data_dict["custom_start"], start_date=format_start_date,
-          start_time=data_dict["start_time"], teacher=teacher, description=data_dict["description"]).save()
+    queue = Queue(discipline=data_dict["discipline"], author=user, groups=groups, date=format_date,
+                  time=data_dict["time"], custom_start=data_dict["custom_start"], start_date=format_start_date,
+                  start_time=data_dict["start_time"], teacher=teacher, description=data_dict["description"])
+    queue.save()
+    date = datetime.strftime(datetime.now(), "%d-%m-%Y %H:%M")
+    telemetry = Telemetry(timestamp=date, relatedQueueId=queue.id,
+                          actionType=1, description="Created Queue " + str(queue.id))
+    user.telemetry.append(telemetry)
+    user.save()
     return jsonify(success=True)  # or false
 
 
@@ -141,6 +147,10 @@ def onjoinqueue():
                     index=(len(q.records) + 1), date=date)
     q.records.append(record)
     q.save()
+    telemetry = Telemetry(timestamp=date, relatedQueueId=q.id,
+                          actionType=3, description="Created record in Queue " + str(q.id))
+    user.telemetry.append(telemetry)
+    user.save()
     # socket.to(data_dict["queue_id"]).emit()
     return jsonify()
 
@@ -221,18 +231,27 @@ def onComments():
                 )
     return jsonify(comments)
 
+
 def onQueueComment():
     data_dict = request.get_json()
     print(data_dict)
     if not data_dict["value"]:
         return jsonify()
     q = Queue.objects(id=data_dict["queue_id"]).first()
+    user = User.objects(id=data_dict["author"]).first()
+    e_rec = q.records[0]
     for rec in q.records:
         if str(rec.id) == data_dict["record_id"]:
+            e_rec = rec
             date = datetime.strftime(datetime.now(), "%d-%m %H:%M")
-            comment = Comment(text=data_dict["value"], date=date, author=User.objects(id=data_dict["author"]).first())
+            comment = Comment(text=data_dict["value"], date=date, author=user)
             rec.comments.append(comment)
     q.save()
+    date = datetime.strftime(datetime.now(), "%d-%m-%Y %H:%M")
+    telemetry = Telemetry(timestamp=date, relatedQueueId=q.id,
+                          actionType=4, description="Commented Record " + str(e_rec.id) + " of Queue " + str(q.id))
+    user.telemetry.append(telemetry)
+    user.save()
     return jsonify()
 
 

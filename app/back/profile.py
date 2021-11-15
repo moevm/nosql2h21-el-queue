@@ -14,6 +14,7 @@ def onProfileView():
         role=find.role,
         name=find.name,
         surname=find.surname,
+        patronymic=find.patronymic,
         GitID=find.githubLogin,
         moodleID=find.moodleLogin,
         group=find.group
@@ -75,6 +76,7 @@ def onupeditProfile():
     info["login"] = user.login
     info["name"] = user.name
     info["surname"] = user.surname
+    info["patronymic"] = user.patronymic
     info["GithubLogin"] = user.githubLogin
     info["MoodleLogin"] = user.moodleLogin
     user_info = {"userInfo": info}
@@ -94,6 +96,8 @@ def oneditProfile():
         user.name = dict["name"]
     if dict["surname"] != "":
         user.surname = dict["surname"]
+    if dict["patronymic"] != "":
+        user.patronymic = dict["patronymic"]
     if dict["GithubLogin"] != "":
         user.githubLogin = dict["GithubLogin"]
     if dict["MoodleLogin"] != "":
