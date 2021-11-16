@@ -15,7 +15,7 @@ SECRET_KEY = str(uuid.uuid4())
 app = Flask(__name__)
 CORS(app)
 app.secret_key = SECRET_KEY
-app.config['UPLOAD_FOLDER'] = '../data/'
+app.config['UPLOAD_FOLDER'] = './data/'
 app.config['JWT_AUTH_URL_RULE'] = '/signin'
 app.config['JWT_AUTH_USERNAME_KEY'] = 'login'
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=604800)
