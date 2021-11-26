@@ -26,7 +26,11 @@ def onProfileQueues():
     print(data_dict)
     queues = []
     info = {}
-    for queue in Queue.objects(archived=False):
+    if "discipline" in data_dict and len(data_dict.get("discipline")):
+        filteredQueues = Queue.objects(archived=False, discipline=data_dict["discipline"])
+    else:
+        filteredQueues = Queue.objects(archived=False)
+    for queue in filteredQueues:
         if queue.custom_start:
             q_time = datetime.strptime(queue.start_date + " " + queue.start_time, "%d-%m-%Y %H:%M")
         else:

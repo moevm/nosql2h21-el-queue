@@ -33,10 +33,21 @@ def onAllQueues():
     data_dict = request.get_json()
     print(data_dict)
     user = User.objects(id=data_dict["user_id"]).first()
+    teacher = data_dict.get("teacher")
+    discipline = data_dict.get("discipline")
     # Список очередей
     queues = []
     info = {}
-    for queue in Queue.objects(archived=False):
+    if teacher and discipline and len(teacher) and len(discipline):
+        filteredQueues = Queue.objects(archived=False, teacher=data_dict["teacher"], discipline=data_dict["discipline"])
+    elif teacher and len(teacher):
+        filteredQueues = Queue.objects(archived=False, teacher=data_dict["teacher"])
+    elif discipline and len(discipline):
+        filteredQueues = Queue.objects(archived=False, discipline=data_dict["discipline"])
+    else:
+        filteredQueues = Queue.objects(archived=False)
+
+    for queue in filteredQueues:
         if queue.custom_start:
             q_time = datetime.strptime(queue.start_date + " " + queue.start_time, "%d-%m-%Y %H:%M")
         else:

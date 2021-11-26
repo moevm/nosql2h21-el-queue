@@ -77,6 +77,7 @@ class ProfileListQueuesContainer extends Component {
 
                             <QueuesFilterContainer
                                 discipline={true}
+                                teacher={this.props.user.role === "admin"}
                                 sendConfig={this.sendConfig} />
 
                             <ListQueues queuesList={this.state.queuesList} user={this.props.user} deleteQueue={this.deleteQueue} />

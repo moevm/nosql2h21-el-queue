@@ -9,11 +9,13 @@ class QueueFilterForm extends Component {
         super(props);
 
         this.getTeachersList = this.getTeachersList.bind(this)
+        this.getDisciplinesList = this.getDisciplinesList.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.state = {
             config: {
-                teachers: [""]
+                teachers: [""],
+                disciplines: [""]
             },
             selected: {
                 discipline: "",
@@ -42,6 +44,7 @@ class QueueFilterForm extends Component {
             .then(data => data.json())
             .then((data) => this.setState(prevState => ({
                 config: {
+                    ...prevState.config,
                     teachers: data
                 },
                 selected: {
@@ -52,9 +55,26 @@ class QueueFilterForm extends Component {
             .catch(console.log)
     }
 
+    getDisciplinesList() {
+        fetch('/config/disciplines')
+            .then(data => data.json())
+            .then((data) => this.setState(prevState => ({
+                config: {
+                    ...prevState.config,
+                    disciplines: data
+                },
+                values: {
+                    ...prevState.selected,
+                    discipline: data[0],
+                }
+            })))
+    }
+
     componentDidMount() {
         if (this.props.teacher)
             this.getTeachersList()
+        if (this.props.discipline)
+            this.getDisciplinesList()
     }
 
 
@@ -69,12 +89,15 @@ class QueueFilterForm extends Component {
                                 <Form.Group className="col-12 col-lg-4">
                                     <Form.Label className="m-1">Дисциплина</Form.Label>
                                     <Form.Control
+                                        className="custom-select"
                                         name={"discipline"}
-                                        className="custom-textform"
-                                        type="text"
+                                        as="select"
                                         onChange={this.handleChange}
                                         value={this.state.selected.discipline}
-                                    />
+                                    >
+                                        {this.state.config.disciplines.map((elem) => <option
+                                            key={"disciplineOption_" + elem}>{elem}</option>)}
+                                    </Form.Control>
                                 </Form.Group>
                             }
                             {
@@ -89,7 +112,7 @@ class QueueFilterForm extends Component {
                                         value={this.state.selected.teacher}>
                                         >
                                         {this.state.config.teachers.map((elem) => <option
-                                            key={"disciplineOption_" + elem}>{elem}</option>)}
+                                            key={"teacherOption_" + elem}>{elem}</option>)}
 
                                     </Form.Control>
                                 </Form.Group>

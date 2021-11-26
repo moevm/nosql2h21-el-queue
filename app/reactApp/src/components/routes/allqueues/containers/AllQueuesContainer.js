@@ -18,7 +18,10 @@ class AllQueuesContainer extends Component {
         this.deleteQueue = this.deleteQueue.bind(this)
         this.state = {
             queuesList: [{}],
-            filterConfig: {}
+            filterConfig: {
+                discipline: '',
+                teacher: ''
+            }
         }
     }
 
@@ -30,7 +33,6 @@ class AllQueuesContainer extends Component {
             method: 'POST',
             headers: headersDefault(),
             body: JSON.stringify({
-                discipline: '',
                 user_id: this.props.user.id,
                 ...data,
             })
