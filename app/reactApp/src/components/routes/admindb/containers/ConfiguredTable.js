@@ -56,45 +56,105 @@ function ConfiguredTable(props) {
 
     return (
         <>
-            <MaterialTable
-                style={{
-                    fontFamily:'Nunito',
-                    borderRadius:20,
-                    boxShadow:"0px 3px 5px rgb(224, 224, 224)",
-                    animation:'appear .6s'
-                }}
-                isLoading={props.isLoading}
-                localization={localization}
-                title={props.table_name.toUpperCase()}
-                options={{
-                    filtering: true
-                }}
-                columns={props.columns}
-                data={props.data}
-                editable={{
-                    onRowAdd:(newData) =>
-                        new Promise((resolve) => {
-                            resolve();
-                            props.editTable("ADD_RECORD", newData)
-                        }),
-                    onRowUpdate:(newData, prevData) =>
-                        new Promise((resolve) => {
-                            resolve();
-                            let prevData_ = Object.assign({}, prevData)
-                            delete prevData_.tableData
-                            if (JSON.stringify(newData) !== JSON.stringify(prevData_))
-                                props.editTable("UPD_RECORD", newData)
+            {props.table_name === 'users' ?
+                <MaterialTable
+                    style={{
+                        fontFamily:'Nunito',
+                        borderRadius:20,
+                        boxShadow:"0px 3px 5px rgb(224, 224, 224)",
+                        animation:'appear .6s'
+                    }}
+                    isLoading={props.isLoading}
+                    localization={localization}
+                    title={props.table_name.toUpperCase()}
+                    options={{
+                        filtering:true
+                    }}
+                    columns={props.columns}
+                    data={props.data}
+                    detailPanel={rowData => {
+                        return (
+                            <>
+                                <div className="p-3">
+                                    <table className="table">
+                                        <tr>
+                                            <th>Действие</th>
+                                            <th>Дата</th>
+                                        </tr>
+                                        {rowData.telemetry.map(el => <tr>
+                                            <td>{el.description}</td>
+                                            <td>{el.timestamp}</td>
+                                        </tr>)}
+                                    </table>
+                                </div>
+                            </>
+                        )
+                    }}
+                    editable={{
+                        onRowAdd:(newData) =>
+                            new Promise((resolve) => {
+                                resolve();
+                                props.editTable("ADD_RECORD", newData)
+                            }),
+                        onRowUpdate:(newData, prevData) =>
+                            new Promise((resolve) => {
+                                resolve();
+                                let prevData_ = Object.assign({}, prevData)
+                                delete prevData_.tableData
+                                if (JSON.stringify(newData) !== JSON.stringify(prevData_))
+                                    props.editTable("UPD_RECORD", newData)
 
-                        }),
-                    onRowDelete:(newData) =>
-                        new Promise((resolve) => {
-                            resolve();
-                            let newData_ = Object.assign({}, newData)
-                            delete newData_.tableData
-                            props.editTable("DEL_RECORD", newData)
-                        }),
-                }}
-            />
+                            }),
+                        onRowDelete:(newData) =>
+                            new Promise((resolve) => {
+                                resolve();
+                                let newData_ = Object.assign({}, newData)
+                                delete newData_.tableData
+                                props.editTable("DEL_RECORD", newData)
+                            }),
+                    }}
+                />
+                :
+                <MaterialTable
+                    style={{
+                        fontFamily:'Nunito',
+                        borderRadius:20,
+                        boxShadow:"0px 3px 5px rgb(224, 224, 224)",
+                        animation:'appear .6s'
+                    }}
+                    isLoading={props.isLoading}
+                    localization={localization}
+                    title={props.table_name.toUpperCase()}
+                    options={{
+                        filtering:true
+                    }}
+                    columns={props.columns}
+                    data={props.data}
+                    editable={{
+                        onRowAdd:(newData) =>
+                            new Promise((resolve) => {
+                                resolve();
+                                props.editTable("ADD_RECORD", newData)
+                            }),
+                        onRowUpdate:(newData, prevData) =>
+                            new Promise((resolve) => {
+                                resolve();
+                                let prevData_ = Object.assign({}, prevData)
+                                delete prevData_.tableData
+                                if (JSON.stringify(newData) !== JSON.stringify(prevData_))
+                                    props.editTable("UPD_RECORD", newData)
+
+                            }),
+                        onRowDelete:(newData) =>
+                            new Promise((resolve) => {
+                                resolve();
+                                let newData_ = Object.assign({}, newData)
+                                delete newData_.tableData
+                                props.editTable("DEL_RECORD", newData)
+                            }),
+                    }}
+                />
+            }
         </>
     )
 }

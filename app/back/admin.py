@@ -4,7 +4,7 @@ from app_models import User, Discipline, SecretKeys, Queue, Class
 import string
 import json
 import random
-import datetime
+from datetime import datetime, timedelta
 import csv
 import os
 
@@ -64,7 +64,8 @@ def sendUsers():
                 'email': user.email,
                 'githubLogin': user.githubLogin,
                 'moodleLogin': user.moodleLogin,
-                'id': str(user.id)
+                'id': str(user.id),
+                'telemetry': [json.loads(tel.to_json()) for tel in user.telemetry]
             }
         )
     output = {
@@ -156,20 +157,19 @@ def sendTeachers():
     ]
 
     data = []
-    for user in User.objects():
-        if user.role == "teacher":
-            data.append(
-                {
-                    'login': user.login,
-                    'name': user.name,
-                    'surname': user.surname,
-                    'role': user.role,
-                    'email': user.email,
-                    'githubLogin': user.githubLogin,
-                    'moodleLogin': user.moodleLogin,
-                    'id': str(user.id)
-                }
-            )
+    for user in User.objects(role="teacher"):
+        data.append(
+            {
+                'login': user.login,
+                'name': user.name,
+                'surname': user.surname,
+                'role': user.role,
+                'email': user.email,
+                'githubLogin': user.githubLogin,
+                'moodleLogin': user.moodleLogin,
+                'id': str(user.id),
+            }
+        )
     output = {
         'success': 'true',
         'table': {
@@ -289,7 +289,7 @@ def sendClasses():
             'field': 'disciplineName'
         },
         {
-            'title': 'Дата',
+            'title': 'Дата первого занятия',
             'field': 'datetime',
             'type': 'datetime'
         },
@@ -297,6 +297,11 @@ def sendClasses():
             'title': 'Повтор (дней)',
             'field': 'repeatTime',
             'type': 'numeric'
+        },
+        {
+            'title': 'Дата ближ. занятия',
+            'field': 'datetime-next',
+            'type': 'string'
         },
         {
             'title': 'Название',
@@ -313,11 +318,19 @@ def sendClasses():
     ]
     data = []
     for cl in Class.objects():
+        try:
+            nextTime = datetime.strptime(cl.datetime, "%d/%m/%Y %H:%M")
+        except ValueError:
+            nextTime = datetime.strptime(cl.datetime, '%Y-%m-%dT%H:%M:%S.%fZ')
+        while nextTime < datetime.now():
+            nextTime += timedelta(days=cl.repeatTime)
+        nextTime = datetime.strftime(nextTime, "%d-%m-%Y %H:%M")
         data.append(
             {
                 'disciplineName': cl.disciplineName,
                 'datetime': cl.datetime,
                 'repeatTime': cl.repeatTime,
+                'datetime-next': nextTime,
                 'description': cl.description,
                 'type': cl.type,
                 'groups': ','.join(cl.groups),
