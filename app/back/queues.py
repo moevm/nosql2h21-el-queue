@@ -271,5 +271,60 @@ def deleteQueue():
     print(data_dict)
     q = Queue.objects(id=data_dict["queue_id"]).first()
     q.archived = True
+    q.archived_timestamp = datetime.utcnow()
     q.save()
     return jsonify()
+
+
+def getQueueStats():
+    data_dict = request.get_json()
+    print(data_dict)
+
+    teacher = data_dict.get("teacher")
+    discipline = data_dict.get("discipline")
+    # get queue average time, records count time, records average time (by filter, archived)
+    pipeline = [
+        {"$project": {
+            "_id": 0,
+            "time_diff": {"$subtract": ["$archived_timestamp", "$timestamp"]},
+            "records_num": {"$size": "$archive"}
+        }},
+        {"$project": {
+            "_id": 0,
+            "records_time": {"$divide": ["$time_diff", "$records_num"]},
+            "time_diff": "$time_diff",
+            "records_num": "$records_num"
+        }},
+        {"$group": {
+            "_id": None,
+            "time_avg": {"$avg": "$time_diff"},
+            "records_avg": {"$avg": "$records_num"},
+            "records_time_avg": {"$avg": "$records_time"}
+        }}
+    ]
+    if teacher and discipline and len(teacher) and len(discipline):
+        filteredQueues = list(Queue.objects(archive__not__size=0, archived=True, teacher=data_dict["teacher"],
+                                            discipline=data_dict["discipline"]).aggregate(pipeline))
+    elif teacher and len(teacher):
+        filteredQueues = list(
+            Queue.objects(archive__not__size=0, archived=True, teacher=data_dict["teacher"]).aggregate(pipeline))
+    elif discipline and len(discipline):
+        filteredQueues = list(
+            Queue.objects(archive__not__size=0, archived=True, discipline=data_dict["discipline"]).aggregate(pipeline))
+    else:
+        filteredQueues = list(Queue.objects(archive__not__size=0, archived=True).aggregate(pipeline))
+    if len(filteredQueues) == 0:
+        stats = {
+            "error": True,
+            "avgQueueTime": 0,
+            "avgRecords": 0,
+            "avgRecordTime": 0,
+        }
+    else:
+        stats = {
+            "avgQueueTime": filteredQueues[0]["time_avg"] / 1000,
+            "avgRecords": filteredQueues[0]["records_avg"],
+            "avgRecordTime": filteredQueues[0]["records_time_avg"] / 1000,
+            "error": False
+        }
+    return jsonify(stats)
