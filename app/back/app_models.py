@@ -1,6 +1,7 @@
 from mongoengine import Document, EmbeddedDocument, StringField, ReferenceField, IntField, ListField, \
-    EmbeddedDocumentField, ObjectIdField, BooleanField, DictField
+    EmbeddedDocumentField, ObjectIdField, BooleanField, DictField, DateTimeField
 from bson.objectid import ObjectId
+import datetime
 
 
 class Telemetry(EmbeddedDocument):
@@ -65,6 +66,7 @@ class Queue(Document):
     groups = ListField(StringField(), required=True)
     date = StringField(required=True)
     time = StringField(required=True)
+    timestamp = DateTimeField(default=datetime.datetime.utcnow())
     teacher = StringField(required=True)
     author = ReferenceField(User)
     # teacher = ListField(ReferenceField(User))
@@ -74,6 +76,7 @@ class Queue(Document):
     start_time = StringField(required=True)
     records = ListField(EmbeddedDocumentField(Record))
     archive = ListField(EmbeddedDocumentField(Record))
+    archived_timestamp = DateTimeField()
     archived = BooleanField(default=False)
 
 
