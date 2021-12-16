@@ -15,7 +15,7 @@ SECRET_KEY = str(uuid.uuid4())
 app = Flask(__name__)
 CORS(app)
 app.secret_key = SECRET_KEY
-app.config['UPLOAD_FOLDER'] = './data/'
+app.config['UPLOAD_FOLDER'] = '../data/'
 app.config['JWT_AUTH_URL_RULE'] = '/signin'
 app.config['JWT_AUTH_USERNAME_KEY'] = 'login'
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=604800)
@@ -30,7 +30,7 @@ from beta_docker import testDB, resetDB
 from config import sendTeacher, sendDiscipline
 from profile import onProfileQueues, onProfileView, onupeditProfile, oneditProfile
 from queues import onAllQueues, onAddNewQueue, onjoinqueue, onqueueInfo, onqueueStudents, deleteQueue, onupRecord, \
-    onComments, onQueueComment
+    onComments, onQueueComment, getQueueStats
 
 if str(os.environ['DOCKER']) == 'true':
     connect("ElQueue", host="elqueue_db")
@@ -118,7 +118,14 @@ def add_new_queue():
 @app.route('/allqueues', methods=['POST'])
 @jwt_required()
 def all_queues():
+    getQueueStats()
     return onAllQueues()
+
+
+@app.route('/stats', methods=['POST'])
+@jwt_required()
+def stats():
+    return getQueueStats()
 
 
 @app.route('/deletequeue', methods=['POST'])
