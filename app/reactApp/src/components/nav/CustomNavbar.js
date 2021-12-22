@@ -30,6 +30,7 @@ function CustomNavbar(props) {
                                 <Nav.Link className="mr-2" href="#/">Очереди</Nav.Link>
                                 {props.user.role !== "student" && <Nav.Link className="mr-2" href="#/addqueue">Создать очередь</Nav.Link>}
                                 {props.user.role === "admin" && <Nav.Link className="mr-2" href="#/admindb">Администрирование</Nav.Link>}
+                                <Nav.Link className="mr-2" href="#/stats">Статистика</Nav.Link>
                             </Nav>
                             <Nav>
                                 <Nav.Link href={`#/profile/${props.user.login}`}>Профиль: {props.user.login}</Nav.Link>

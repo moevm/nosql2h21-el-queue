@@ -11,9 +11,11 @@ import {
     sign_out
 } from './actions/user';
 import { connect } from 'react-redux'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
 import AddQueue from './components/routes/addqueue/AddQueue'
 import AllQueues from './components/routes/allqueues/AllQueues'
 import Queue from './components/routes/queue/Queue'
+import Stats from './components/routes/stats/Stats'
 import Profile from './components/routes/profile/Profile'
 import ProfileEditor from './components/routes/profile/ProfileEditor'
 import CustomNavbar from "./components/nav/CustomNavbar"
@@ -61,6 +63,7 @@ class App extends Component {
                         <Route path="/queue/:curr_id" component={Queue} />
                         <Route path="/profile/editor/" component={ProfileEditor} />
                         <Route path="/profile/:curr_login" component={Profile} />
+                        <Route path="/stats" component={Stats} />
                         <Route path="/admindb">
                             {
                                 this.props.user.role === "admin" &&

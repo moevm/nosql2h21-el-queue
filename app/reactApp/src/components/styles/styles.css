@@ -70,6 +70,10 @@ body {
     padding: 6px !important;
 }
 
+.rbc-month-view {
+    min-height: 500px !important;
+}
+
 .bg-light {
     background-color: rgb(252, 252, 252) !important;
 }

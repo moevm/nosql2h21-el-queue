@@ -1,7 +1,13 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import MaterialTable from 'material-table';
+import { Calendar, Views } from 'react-big-calendar';
+import localizer from 'react-big-calendar/lib/localizers/moment'
+import moment from "moment";
 
+let local = localizer(moment)
+
+let allViews = Object.keys(Views).map(k => Views[k])
 
 const localization = {
     body:{
@@ -49,6 +55,25 @@ const localization = {
         searchTooltip:'Поиск',
         searchPlaceholder:'Поиск'
     }
+}
+
+function getManyDates(data) {
+    let classes = []
+    let idx = 0;
+    data.forEach(el => {
+        for (let i = 0; i < 150; i ++) {
+            let start = new Date(el.datetime)
+            start.setDate(start.getDate() + i * el.repeatTime)
+            classes.push({
+                id: i * idx + idx,
+                title: el.disciplineName + " " + el.description,
+                start: start,
+                end: new Date(start + 60000 * 90)
+            })
+        }
+        idx++;
+    })
+    return classes;
 }
 
 
@@ -154,6 +179,17 @@ function ConfiguredTable(props) {
                             }),
                     }}
                 />
+            }
+            {(props.table_name === "classes" && props.data) &&
+                <div className="custom-paper p-3 col-12 mt-3">
+                    <Calendar
+                        step={60}
+                        views={allViews}
+                        events={getManyDates(props.data)}
+                        localizer={local}
+                    >
+                    </Calendar>
+                </div>
             }
         </>
     )
